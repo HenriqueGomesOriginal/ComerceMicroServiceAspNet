@@ -1,4 +1,5 @@
 ﻿using Catalog.API.Business;
+using Catalog.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -22,8 +23,8 @@ namespace Catalog.API.Controllers
 
         // GET: ProductsController
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        [ProducesResponseType(typeof(IEnumerable<Products>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<Products>>> GetProducts()
         {
             var products = await _business.FindAll();
 
