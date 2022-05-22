@@ -7,6 +7,8 @@
 
 using Catalog.API.Business;
 using Catalog.API.Business.Implementation;
+using Catalog.API.Models;
+using Catalog.API.Models.Context;
 using Catalog.API.Repository;
 using Catalog.API.Repository.Implementation;
 using Microsoft.AspNetCore.Rewrite;
@@ -44,19 +46,25 @@ namespace Catalog.API
             })
                 .AddXmlSerializerFormatters();
 
+            // Add database dependency
+            MongoDbContext.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+            MongoDbContext.Database = Configuration.GetSection("MongoConnection:Database").Value;
+            MongoDbContext.IsSSL = Convert.ToBoolean(this.Configuration.GetSection("MongoConnection:IsSSL").Value);
+
+            services.AddSingleton<MongoDbContext>();
+
             // Version control
             services.AddApiVersioning();
 
             services.AddControllers();
 
-            // Version control
-            services.AddApiVersioning();
-
             // Dependency injection
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddScoped<IProductsBusiness, ProductsBusiness>();
             services.AddScoped<IProductsRepository, ProductsRepository>();
+            services.AddScoped<IProductsBusiness, ProductsBusiness>();
+             
+            services.AddOptions();
 
             services.AddCors(options => options.AddDefaultPolicy(builder =>
             {

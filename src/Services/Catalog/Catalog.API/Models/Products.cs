@@ -4,8 +4,8 @@ namespace Catalog.API.Models
 {
     public class Products
     {
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+       [BsonId]
+       [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id { get; set; }
 
         [BsonElement("Name")]
@@ -15,6 +15,6 @@ namespace Catalog.API.Models
         [BsonElement("Description")]
         public string Description { get; set; }
         [BsonElement("Price")]
-        public float Price { get; set; }
+        public double Price { get; set; }
     }
 }
