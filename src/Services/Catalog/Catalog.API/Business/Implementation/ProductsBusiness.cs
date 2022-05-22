@@ -12,9 +12,29 @@ namespace Catalog.API.Business.Implementation
             _products = products;
         }
 
-        public Task<IEnumerable<Products>> FindAll()
+        async Task<Products> IProductsBusiness.Create(Products products)
         {
-            return _products.FindAll();
+            return await _products.Create(products);
+        }
+
+        async Task<bool> IProductsBusiness.Delete(string id)
+        {
+            return await _products.Delete(id);
+        }
+
+        async Task<Products> IProductsBusiness.Find(string id)
+        {
+            return await _products.Find(id);
+        }
+
+        async Task<IEnumerable<Products>> IProductsBusiness.FindAll()
+        {
+            return await _products.FindAll();
+        }
+
+        async Task<Products> IProductsBusiness.Update(Products products)
+        {
+            return await _products.Update(products);
         }
     }
 }
